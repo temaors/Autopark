@@ -1,6 +1,6 @@
 ﻿namespace Autopark;
 
-public class Vehicle
+public class Vehicle : IComparable
 {
     private VehicleType Type { get; set; }
     private string? ModelName { get; set; }
@@ -9,19 +9,29 @@ public class Vehicle
     private int ManufactureYear { get; set; }
     private int Mileage { get; set; }
     private Color Color { get; set; }
-    //
-    // public int CompareTo(object? o)
-    // {
-    //     
-    // }
 
     public double GetCalcTaxPerMonth()
     {
-        return 0.0;
-    } 
-}
+        double result = 0.0;
+        result = (Weight * 0.0013) + (Type.TaxCoefficient * 30) + 5;
+        return result;
+    }
 
-public interface IComparable
-{
-    int CompareTo(object? o);
+    public override String ToString() =>
+        $"{Type},{ModelName}, {RegistrationNumber}, {Weight}, {ManufactureYear}, {Mileage}, {Color}, {GetCalcTaxPerMonth().ToString("0.00")}";
+
+    public int CompareTo(Object? obj)
+    {
+        Vehicle vehicle = obj as Vehicle;
+        if (GetCalcTaxPerMonth() > vehicle.GetCalcTaxPerMonth())
+        {
+            return 1;
+        }
+
+        if (GetCalcTaxPerMonth() < vehicle.GetCalcTaxPerMonth())
+        {
+            return -1;
+        }
+        return 0;
+    }
 }
