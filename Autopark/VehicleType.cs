@@ -29,5 +29,5 @@ public class VehicleType
         Console.WriteLine("TaxCoefficient = " + TaxCoefficient);
     }
 
-    public override string ToString() => $"{TypeName}, {TaxCoefficient}";
+    public override string ToString() => $"{TypeName}, {TaxCoefficient} ";
 }

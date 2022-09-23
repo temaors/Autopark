@@ -10,6 +10,16 @@ public class Vehicle : IComparable
     private int Mileage { get; set; }
     private Color Color { get; set; }
 
+    public Vehicle(VehicleType type, string modelName, string registrationNumber, int weight, int manufactureYear, int mileage, Color color)
+    {
+        Type = type;
+        ModelName = modelName;
+        RegistrationNumber = registrationNumber;
+        Weight = weight;
+        ManufactureYear = manufactureYear;
+        Mileage = mileage;
+        Color = color;
+    }
     public double GetCalcTaxPerMonth()
     {
         double result = 0.0;
