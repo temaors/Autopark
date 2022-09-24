@@ -3,6 +3,7 @@
 public class Vehicle : IComparable
 {
     private VehicleType Type { get; set; }
+    private Engine Engine { get; set; }
     private string? ModelName { get; set; }
     private string? RegistrationNumber { get; set; }
     private int Weight { get; set; }
@@ -23,13 +24,13 @@ public class Vehicle : IComparable
     public double GetCalcTaxPerMonth()
     {
         double result = 0.0;
-        result = (Weight * 0.0013) + (Type.TaxCoefficient * 30) + 5;
+        result = (Weight * 0.0013) + (Type.TaxCoefficient * Engine.TaxCoefficientByEngineType * 30) + 5;
         return result;
     }
 
     public override String ToString() =>
         $"{Type},{ModelName}, {RegistrationNumber}, {Weight}, {ManufactureYear}, {Mileage}, {Color}, {GetCalcTaxPerMonth().ToString("0.00")}";
-
+    
     public int CompareTo(Object? obj)
     {
         Vehicle vehicle = obj as Vehicle;
@@ -43,5 +44,16 @@ public class Vehicle : IComparable
             return -1;
         }
         return 0;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        Vehicle secondVehicle = obj as Vehicle;
+        if (Type == secondVehicle.Type && ModelName == secondVehicle.ModelName)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
