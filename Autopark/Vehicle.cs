@@ -3,7 +3,7 @@
 public class Vehicle : IComparable
 {
     private VehicleType Type { get; set; }
-    private Engine Engine { get; set; }
+    private AbstractEngine Engine { get; set; }
     private string? ModelName { get; set; }
     private string? RegistrationNumber { get; set; }
     private int Weight { get; set; }

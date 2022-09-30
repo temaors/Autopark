@@ -1,6 +1,6 @@
 ﻿namespace Autopark;
 
-public class ElectricalEngine : Engine
+public class ElectricalEngine : AbstractEngine
 {
     private double ElectricityConsumption { get; set; }
 
@@ -9,7 +9,7 @@ public class ElectricalEngine : Engine
         ElectricityConsumption = electricityConsumption;
     }
 
-    public double GetMaxKilometers(double batterySize)
+    public override double GetMaxKilometers(double batterySize)
     {
         return batterySize / ElectricityConsumption;
     }
