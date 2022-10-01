@@ -3,7 +3,13 @@
 public class Vehicle : IComparable
 {
     private VehicleType Type { get; set; }
-    private AbstractEngine Engine { get; set; }
+    private AbstractEngine engine;
+    public AbstractEngine Engine
+    {
+        get { return engine; }
+        set { engine = value; }
+    }
+
     private string? ModelName { get; set; }
     private string? RegistrationNumber { get; set; }
     private int Weight { get; set; }
@@ -11,9 +17,10 @@ public class Vehicle : IComparable
     private int Mileage { get; set; }
     private Color Color { get; set; }
 
-    public Vehicle(VehicleType type, string modelName, string registrationNumber, int weight, int manufactureYear, int mileage, Color color)
+    public Vehicle(VehicleType type, AbstractEngine engine, string modelName, string registrationNumber, int weight, int manufactureYear, int mileage, Color color)
     {
         Type = type;
+        Engine = engine;
         ModelName = modelName;
         RegistrationNumber = registrationNumber;
         Weight = weight;

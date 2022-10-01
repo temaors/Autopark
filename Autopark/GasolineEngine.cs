@@ -10,11 +10,6 @@ public class GasolineEngine : AbstractCombustionEngine
     
     public override double GetMaxKilometers(double fuelTank)
     {
-        return fuelTank / FuelConsumptionPer100;
-    }
-
-    public override double GetMaxKilometres(double fuelTankCapacity)
-    {
-        throw new NotImplementedException();
+        return fuelTank * 100 / FuelConsumptionPer100;
     }
 }

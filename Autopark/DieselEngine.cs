@@ -8,14 +8,9 @@ public class DieselEngine : AbstractCombustionEngine
         EngineCapacity = engineCapacity;
         FuelConsumptionPer100 = fuelConsumptionPer100;
     }
-
-    public override double GetMaxKilometres(double fuelTankCapacity)
-    {
-        return fuelTankCapacity / FuelConsumptionPer100;
-    }
-
     public override double GetMaxKilometers(double fuelTank)
     {
-        throw new NotImplementedException();
+        return fuelTank * 100 / FuelConsumptionPer100;
     }
+
 }
