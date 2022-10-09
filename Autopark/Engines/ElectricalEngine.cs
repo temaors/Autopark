@@ -13,4 +13,7 @@ public class ElectricalEngine : AbstractEngine
     {
         return batterySize / ElectricityConsumption;
     }
+    
+    //public override string ToString() => $"{base.ToString()} {ElectricityConsumption}";
+
 }

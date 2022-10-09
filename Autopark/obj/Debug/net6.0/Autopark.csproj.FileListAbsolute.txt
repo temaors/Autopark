@@ -13,3 +13,7 @@ D:\dev-incubator\Core\Autopark\Autopark\obj\Debug\net6.0\refint\Autopark.dll
 D:\dev-incubator\Core\Autopark\Autopark\obj\Debug\net6.0\Autopark.pdb
 D:\dev-incubator\Core\Autopark\Autopark\obj\Debug\net6.0\Autopark.genruntimeconfig.cache
 D:\dev-incubator\Core\Autopark\Autopark\obj\Debug\net6.0\ref\Autopark.dll
+D:\dev-incubator\Core\Autopark\Autopark\bin\Debug\net6.0\rents.csv
+D:\dev-incubator\Core\Autopark\Autopark\bin\Debug\net6.0\types.csv
+D:\dev-incubator\Core\Autopark\Autopark\bin\Debug\net6.0\vehicles.csv
+D:\dev-incubator\Core\Autopark\Autopark\bin\Debug\net6.0\orders.csv

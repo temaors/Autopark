@@ -2,14 +2,9 @@
 
 public class VehicleType
 {
-    private string typeName;
+    public int Id { get; set; }
+    public string TypeName { get; set; }
     public double TaxCoefficient { get; set; }
-
-    public string TypeName
-    { 
-        get { return typeName; }
-        set { typeName = value; } 
-    }
 
     public VehicleType()
     {
@@ -17,16 +12,16 @@ public class VehicleType
         TaxCoefficient = 1;
     }
 
-    public VehicleType(string typeName, double taxCoefficient)
+    public VehicleType(int id, string typeName, double taxCoefficient)
     {
+        Id = id;
         TypeName = typeName;
         TaxCoefficient = taxCoefficient;
     }
     
     public void Display()
     {
-        Console.WriteLine("TypeName = " + TypeName);
-        Console.WriteLine("TaxCoefficient = " + TaxCoefficient);
+        Console.WriteLine("TypeName = {0}\nTaxCoefficient = {1}", TypeName, TaxCoefficient);
     }
 
     public override string ToString() => $"{TypeName}, {TaxCoefficient} ";

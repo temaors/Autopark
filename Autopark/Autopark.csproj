@@ -7,4 +7,19 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Update="rents.csv">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="types.csv">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="vehicles.csv">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="orders.csv">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

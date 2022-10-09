@@ -1,24 +1,26 @@
 ﻿namespace Autopark;
 
-public class Vehicle : IComparable
+public class Vehicle : IComparable<Vehicle>
 {
-    private VehicleType Type { get; set; }
-    private AbstractEngine engine;
-    public AbstractEngine Engine
-    {
-        get { return engine; }
-        set { engine = value; }
-    }
+    private const int TaxMultiplier = 30;
+    private const int TaxBasicShift = 5;
+    private const double WeightCoefficient = 0.0013;
+    
+    public int Id { get; set; }
+    public VehicleType? Type { get; set; }
+    public AbstractEngine? Engine { get; set; }
+    public string ModelName { get; set; }
+    public string RegistrationNumber { get; set; }
+    public int Weight { get; set; }
+    public double TankVolume { get; set; }
+    public int ManufactureYear { get; set; }
+    public int Mileage { get; set; }
+    public Color Color { get; set; }
+    public List<Rent> listRent { get; set; }
 
-    private string? ModelName { get; set; }
-    private string? RegistrationNumber { get; set; }
-    private int Weight { get; set; }
-    private int ManufactureYear { get; set; }
-    private int Mileage { get; set; }
-    private Color Color { get; set; }
-
-    public Vehicle(VehicleType type, AbstractEngine engine, string modelName, string registrationNumber, int weight, int manufactureYear, int mileage, Color color)
+    public Vehicle(int id, VehicleType? type, AbstractEngine? engine, string modelName, string registrationNumber, int weight, int manufactureYear, int mileage, double tankVolume, Color color) 
     {
+        Id = id;
         Type = type;
         Engine = engine;
         ModelName = modelName;
@@ -26,27 +28,75 @@ public class Vehicle : IComparable
         Weight = weight;
         ManufactureYear = manufactureYear;
         Mileage = mileage;
+        TankVolume = tankVolume;
         Color = color;
+        listRent = new List<Rent>();
+    }
+    
+    public static Vehicle GetVehicleWithMinMileage(Vehicle[] vehicles)
+    {
+        int indexOfMinMileage = 0;
+        double minMileage = vehicles[0].Mileage;
+
+        for (int i = 0; i < vehicles.Length; i++)
+        {
+            if (minMileage > vehicles[i].Mileage)
+            {
+                minMileage = vehicles[i].Mileage;
+                indexOfMinMileage = i;
+            }
+        }
+        return vehicles[indexOfMinMileage];
+    }
+
+    public static Vehicle GetVehicleWithMaxMileage(Vehicle[] vehicles)
+    {
+        int indexOfMaxMileage = 0;
+        double maxMileage = vehicles[0].Mileage;
+
+        for (int i = 0; i < vehicles.Length; i++)
+        {
+            if (maxMileage < vehicles[i].Mileage)
+            {
+                maxMileage = vehicles[i].Mileage;
+                indexOfMaxMileage = i;
+            }
+        }
+        return vehicles[indexOfMaxMileage];
     }
     public double GetCalcTaxPerMonth()
     {
-        double result = 0.0;
-        result = (Weight * 0.0013) + (Type.TaxCoefficient * Engine.TaxCoefficientByEngineType * 30) + 5;
-        return result;
+        return Weight * WeightCoefficient
+               + Type.TaxCoefficient * Engine.TaxCoefficientByEngineType * TaxMultiplier + TaxBasicShift;
     }
 
     public override String ToString() =>
         $"{Type},{ModelName}, {RegistrationNumber}, {Weight}, {ManufactureYear}, {Mileage}, {Color}, {GetCalcTaxPerMonth().ToString("0.00")}";
     
-    public int CompareTo(Object? obj)
+    // public int CompareTo(Object? obj)
+    // {
+    //     Vehicle vehicle = obj as Vehicle;
+    //     if (GetCalcTaxPerMonth() > vehicle.GetCalcTaxPerMonth())
+    //     {
+    //         return 1;
+    //     }
+    //
+    //     if (GetCalcTaxPerMonth() < vehicle.GetCalcTaxPerMonth())
+    //     {
+    //         return -1;
+    //     }
+    //     return 0;
+    // }
+
+    public int CompareTo(Vehicle? other)
     {
-        Vehicle vehicle = obj as Vehicle;
-        if (GetCalcTaxPerMonth() > vehicle.GetCalcTaxPerMonth())
+        
+        if (other != null && GetCalcTaxPerMonth() > other.GetCalcTaxPerMonth())
         {
             return 1;
         }
 
-        if (GetCalcTaxPerMonth() < vehicle.GetCalcTaxPerMonth())
+        if (other != null && GetCalcTaxPerMonth() < other.GetCalcTaxPerMonth())
         {
             return -1;
         }
@@ -55,12 +105,23 @@ public class Vehicle : IComparable
 
     public override bool Equals(object? obj)
     {
-        Vehicle secondVehicle = obj as Vehicle;
-        if (Type == secondVehicle.Type && ModelName == secondVehicle.ModelName)
-        {
-            return true;
-        }
+        return obj is Vehicle vehicle
+               && Type.Equals(vehicle.Type)
+               && ModelName.Equals(vehicle.ModelName);
+    }
 
-        return false;
+    public double GetTotalIncome()
+    {
+        double sum = 0;
+        foreach (var rent in listRent)
+        {
+            sum += rent.Cost;
+        }
+        return sum;
+    }
+
+    public double GetTotalProfit()
+    {
+        return GetTotalIncome() - GetCalcTaxPerMonth();
     }
 }

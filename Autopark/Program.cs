@@ -1,52 +1,88 @@
-﻿using System;
-using Autopark;
+﻿using Autopark;
 
 public class Program
 {
     public static void Main()
     {
-        double buffMax = 0;
-        int indexMax = 0;
-        VehicleType[] autopark = {new VehicleType("Bus", 1.2), 
-            new VehicleType("Car" ,1),
-            new VehicleType("Rink", 1.5),
-            new VehicleType("Tractor", 1.2)
-        };
+        Collections autopark = new Collections();
+        autopark.Insert
+        (
+            -1,
+            new Vehicle
+            (
+                8, autopark.VehicleTypes[1],
+                new GasolineEngine(4.8, 12.3),
+                "Ferrari 458 Italia",
+                "1111 TT-7",
+                1530,
+                2022,
+                500,
+                80,
+                Color.Red
+            )
+        );
 
-        Vehicle[] vehicles =
-        {
-            new Vehicle(autopark[0], new GasolineEngine(2,8.1), "Volkswagen Crafter", "5427 AX-7", 2022, 2015, 376000, Color.Blue),
-            new Vehicle(autopark[0], new GasolineEngine(2.18, 8.5), "Volkswagen Crafter", "6427 AA-7", 2500, 2014, 227010, Color.White),
-            new Vehicle(autopark[0], new ElectricalEngine(50),"Electric Bus E321", "6785 BA-7", 12080, 2019, 20451, Color.Green),
-            new Vehicle(autopark[1], new DieselEngine(1.6, 7.2),"Golf 5", "8682 AX-7", 1200, 2016, 230451, Color.Gray),
-            new Vehicle(autopark[1], new ElectricalEngine(25),"Tesla Model S 70D", "E001 AA-7", 2200, 2019, 10454, Color.White),
-            new Vehicle(autopark[2], new DieselEngine(3.2, 25),"Hamm HD 12 VV", null, 3000, 2016, 122, Color.Yellow),
-            new Vehicle(autopark[3], new DieselEngine(4.75, 20.1),"MTZ Belarus-1025.4", "1145 AB-7", 120, 2020, 109, Color.Red)
-        };
+        autopark.Print();
 
-        for (int i = 0; i < 7; i++)
-        {
-            Console.WriteLine(vehicles[i]);
-        }
+        autopark.Delete(1);
+        autopark.Delete(4);
+        Console.WriteLine("Deletion of elements 1, 4 successfully done!");
+        Console.WriteLine();
+        autopark.Print();
         
-        Array.Sort(vehicles);
-        Console.WriteLine(new string('-',22));
-        for (int i = 0; i < 7; i++)
+        autopark.Sort(new VehicleComparer());
+        Console.WriteLine("Elements was sorted successfully");
+        autopark.Print();
+        
+        var queue = new CustomQueue<Vehicle>();
+
+        Console.WriteLine();
+        foreach (var vehicle in autopark.Vehicles)
         {
-            Console.WriteLine(vehicles[i]);
+            Console.WriteLine("Car gets into car wash:");
+            Console.WriteLine(vehicle);
+            queue.Enqueue(vehicle);
         }
 
-        for (int i = 0; i < 7; i++)
+        Console.WriteLine();
+        foreach (var vehicle in queue)
         {
-            Console.WriteLine("Max kilometers of" + vehicles[i] + " : " + vehicles[i].Engine.GetMaxKilometers(100));
-            if (vehicles[i].Engine.GetMaxKilometers(100) > buffMax)
-            {
-                buffMax = vehicles[i].Engine.GetMaxKilometers(100);
-                indexMax = i;
-            }
+            Console.WriteLine($"Vehicle {vehicle} is washing now.");
         }
+
+        Console.WriteLine();
+        while (queue.Count != 0)
+        {
+            Console.WriteLine("Car lefts a car wash:");
+            Console.WriteLine(queue.Dequeue());
+        }
+
+        Console.WriteLine();
+        var stack = new CustomStack<Vehicle>();
+
+        Console.WriteLine();
+        foreach (var vehicle in autopark.Vehicles)
+        {
+            Console.WriteLine("Car gets into garage:");
+            Console.WriteLine(vehicle);
+            stack.Push(vehicle);
+        }
+
+        var myCar = autopark.Vehicles[3];
+        Console.WriteLine();
+        Console.WriteLine($"Does garage contain this car:\n{myCar}\n???");
+        Console.WriteLine(stack.Contains(myCar));
+        Console.WriteLine();
+
+        while (stack.Count != 0)
+        {
+            Console.WriteLine("Car lefts a garage:");
+            Console.WriteLine(stack.Pop());
+        }
+
+        Console.WriteLine();
         
-        Console.WriteLine("\nMax kilometers index: " + indexMax);
-        Console.WriteLine(vehicles[indexMax]);
+        var sparePartsList = new SparePartsDictionary("./orders.csv");
+        sparePartsList.Print();
     }
 }
