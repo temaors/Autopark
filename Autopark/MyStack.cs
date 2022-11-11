@@ -11,5 +11,7 @@
             Array[Count] = default!;
             return lastItem;
         }
+        
+        //Where is the size of the garage?
     }
 }

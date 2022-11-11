@@ -7,8 +7,8 @@ public class Vehicle : IComparable<Vehicle>
     private const double WeightCoefficient = 0.0013;
     
     public int Id { get; set; }
-    public VehicleType? Type { get; set; }
-    public AbstractEngine? Engine { get; set; }
+    public VehicleType? Type { get; set; } //No need to make it nullable
+    public AbstractEngine? Engine { get; set; }  //No need to make it nullable
     public string ModelName { get; set; }
     public string RegistrationNumber { get; set; }
     public int Weight { get; set; }
@@ -17,6 +17,8 @@ public class Vehicle : IComparable<Vehicle>
     public int Mileage { get; set; }
     public Color Color { get; set; }
     public List<Rent> listRent { get; set; }
+    
+    // Where is default constructor?
 
     public Vehicle(int id, VehicleType? type, AbstractEngine? engine, string modelName, string registrationNumber, int weight, int manufactureYear, int mileage, double tankVolume, Color color) 
     {

@@ -6,7 +6,7 @@ public class VehicleType
     public string TypeName { get; set; }
     public double TaxCoefficient { get; set; }
 
-    public VehicleType()
+    public VehicleType() // No need to initialize properties in default constructor
     {
         TypeName = "Bus";
         TaxCoefficient = 1;

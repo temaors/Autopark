@@ -1,4 +1,5 @@
-﻿using Autopark;
+﻿using System.Globalization;
+using Autopark;
 
 public class Program
 {
@@ -41,7 +42,8 @@ public class Program
         {
             Console.WriteLine("Car gets into car wash:");
             Console.WriteLine(vehicle);
-            queue.Enqueue(vehicle);
+            
+            queue.Enqueue(vehicle); // before writelines
         }
 
         Console.WriteLine();
@@ -54,11 +56,11 @@ public class Program
         while (queue.Count != 0)
         {
             Console.WriteLine("Car lefts a car wash:");
-            Console.WriteLine(queue.Dequeue());
+            Console.WriteLine(queue.Dequeue()); // before writeline
         }
 
         Console.WriteLine();
-        var stack = new CustomStack<Vehicle>();
+        var stack = new CustomStack<Vehicle>(); 
 
         Console.WriteLine();
         foreach (var vehicle in autopark.Vehicles)
@@ -77,7 +79,7 @@ public class Program
         while (stack.Count != 0)
         {
             Console.WriteLine("Car lefts a garage:");
-            Console.WriteLine(stack.Pop());
+            Console.WriteLine(stack.Pop()); // before writeline
         }
 
         Console.WriteLine();

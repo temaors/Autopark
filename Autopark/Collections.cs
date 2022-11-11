@@ -8,11 +8,11 @@ public class Collections
     public List<Vehicle> Vehicles { get; }
     public List<VehicleType?> VehicleTypes { get; }
 
-    public Collections()
+    public Collections() // it should be constructor with paths as parameters
     {
-        Rents = new List<Rent>();
-        VehicleTypes = new List<VehicleType?>();
-        Vehicles = new List<Vehicle>();
+        Rents = new List<Rent>(); // no need to initialize here
+        VehicleTypes = new List<VehicleType?>(); // no need to initialize here
+        Vehicles = new List<Vehicle>(); // no need to initialize here
         
         VehicleTypes = LoadTypes("./types.csv");
         Rents = LoadRents("./rents.csv");
@@ -27,7 +27,7 @@ public class Collections
         {
             string[] line = File.ReadAllLines(inFile);
 
-            foreach (var t in line)
+            foreach (var t in line) //rename variable
             {
                 typesList.Add(CreateType(t));
             }
@@ -46,7 +46,7 @@ public class Collections
         {
             string[] line = File.ReadAllLines(inFile);
 
-            foreach (var t in line)
+            foreach (var t in line) //rename variable
             {
                 vehicleList.Add(CreateVehicle(t));
             }
@@ -86,7 +86,7 @@ public class Collections
     
     private VehicleType? GetVehicleTypeById(int id)
     {
-        foreach (VehicleType? type in VehicleTypes)
+        foreach (VehicleType? type in VehicleTypes) // We can simplify this.
         {
             if (type != null && type.Id == id)
             {
@@ -103,7 +103,7 @@ public class Collections
         {
             string[] line = File.ReadAllLines(inFile);
 
-            foreach (var t in line)
+            foreach (var t in line) //rename variable
             {
                 rentsList.Add(CreateRegisterData(t));
             }
@@ -119,7 +119,7 @@ public class Collections
     {
         string[] data = str.Split(',');
 
-        return new VehicleType(int.Parse(data[0]), data[1], double.Parse(data[2], CultureInfo.InvariantCulture)
+        return new VehicleType(int.Parse(data[0]), data[1], double.Parse(data[2], CultureInfo.InvariantCulture) // We can change culture info for all project
         );
     }
 
